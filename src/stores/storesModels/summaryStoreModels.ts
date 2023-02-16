@@ -14,8 +14,14 @@ export interface Row {
   practicesAvgGrade: string;
   totalTimeOnTask: string;
 }
+
 export interface TableColumn {
   name: string;
   label: string;
   field: ((row: Row) => string) | string;
+}
+
+export interface SummaryJson {
+  columns: Row;
+  rows: Row[];
 }
