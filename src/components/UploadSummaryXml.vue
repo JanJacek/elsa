@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="file" @change="handleFileUpload" class="bg-red" />
+    <input type="file" @change="handleFileUpload" class="upload-input" />
     <pre v-if="fileContent" style="with: 500px; height: 500px">{{
       fileContent
     }}</pre>
@@ -28,23 +28,25 @@ async function handleFileUpload(event: any) {
   reader.onload = (e: any) => {
     const xml = parser.parseFromString(e.target.result, 'application/xml');
     const table = [...xml.getElementsByTagName('Table')[0].children];
-    table.forEach((element: any, lab) => {
+    table.forEach((element: any) => {
       if (element.tagName === 'Row') {
         const rowy: Row = {
           name: '',
-          username: '',
-          lastLogin: '',
-          enrolmentDate: '',
+          username: '', // remove
+          lastLogin: '', // remove
+          enrolmentDate: '', // remove
           assignmentsCompleted: '',
           assignmentsAvgScore: '',
           assignmentsAvgGrade: '',
-          testsCompleted: '',
+          testsCompleted: '', // remove
           testsAvgScore: '',
           testsAvgGrade: '',
-          practicesCompleted: '',
-          practicesAvgScore: '',
-          practicesAvgGrade: '',
-          totalTimeOnTask: '',
+          practicesCompleted: '', // remove
+          practicesAvgScore: '', // remove
+          practicesAvgGrade: '', // remove
+          totalTimeOnTask: '', // remove
+          oralVocabulary: '',
+          oralInteraction: '',
         };
         [...element.children].forEach((row: any, rowIndex) => {
           const { textContent } = row;
@@ -127,3 +129,21 @@ async function handleFileUpload(event: any) {
   console.log('summaryJson', s_store.summaryJson);
 }
 </script>
+
+<style>
+.upload-input {
+  margin: 10px 15px;
+  padding: 10px;
+  width: 250px;
+  height: 100px;
+  border-radius: 5px;
+  border: 2px dashed #13489e;
+}
+input::file-selector-button {
+  background-color: #1976d2;
+  color: white;
+  padding: 0.5em;
+  border: none;
+  border-radius: 3px;
+}
+</style>
