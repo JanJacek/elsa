@@ -14,19 +14,13 @@ export const summaryStore = defineStore('summaryStore', {
     summaryJson: {
       columns: {
         name: 'Name',
-        username: 'Username',
-        lastLogin: 'last Login',
-        enrolmentDate: 'Enrolment Date',
         assignmentsCompleted: 'Assignments Completed',
         assignmentsAvgScore: 'Assignments Avg Score',
         assignmentsAvgGrade: 'Assignments Avg Grade',
-        testsCompleted: 'Tests Completed',
         testsAvgScore: 'Tests Avg Score',
         testsAvgGrade: 'Tests Avg Grade',
-        practicesCompleted: 'Practices Completed',
-        practicesAvgScore: 'Practices Avg Score',
-        practicesAvgGrade: 'Practices Avg Grade',
-        totalTimeOnTask: 'Total Time On Task',
+        oralVocabulary: 'Oral Vocabulary',
+        oralInteraction: 'Oral Interaction',
       },
       rows: [],
     },
@@ -39,6 +33,8 @@ export const summaryStore = defineStore('summaryStore', {
           name: key,
           label: val,
           field: key,
+          style: 'margin: 0; padding: 0;',
+          align: 'center',
         });
       }
       return columnsForTable;
@@ -61,6 +57,8 @@ export const summaryStore = defineStore('summaryStore', {
           practicesAvgScore: row.practicesAvgScore,
           practicesAvgGrade: row.practicesAvgGrade,
           totalTimeOnTask: row.totalTimeOnTask,
+          oralVocabulary: row.oralVocabulary,
+          oralInteraction: row.oralInteraction,
         });
       }
       return rowsForTable;
