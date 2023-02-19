@@ -15,6 +15,8 @@ export interface Row {
   totalTimeOnTask?: string;
   oralVocabulary: string;
   oralInteraction: string;
+  description: string;
+  id: string;
 }
 
 export interface TableColumn {
@@ -23,9 +25,4 @@ export interface TableColumn {
   field: ((row: Row) => string) | string;
   style?: string;
   align?: 'left' | 'right' | 'center';
-}
-
-export interface SummaryJson {
-  columns: Row;
-  rows: Row[];
 }
