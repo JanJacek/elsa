@@ -8,19 +8,20 @@
 </template>
 
 <script setup lang="ts">
+//libraries
+import { v4 as uuidv4 } from 'uuid';
 import { ref } from 'vue';
 //stores
 import { summaryStore } from 'src/stores/summaryStore';
 //types
-import { Row } from './models';
+//utils
+import { Student } from 'src/utils/newStudent';
 /* script */
 const s_store = summaryStore();
-const { rows } = s_store.summaryJson;
-
+const { dictionary } = s_store;
 const fileContent = ref('');
 
 async function handleFileUpload(event: any) {
-  console.log(event.target.files[0]);
   const file = event.target.files[0];
   const reader = new FileReader();
   const parser = new DOMParser();
@@ -30,95 +31,81 @@ async function handleFileUpload(event: any) {
     const table = [...xml.getElementsByTagName('Table')[0].children];
     table.forEach((element: any) => {
       if (element.tagName === 'Row') {
-        const rowy: Row = {
-          name: '',
-          username: '', // remove
-          lastLogin: '', // remove
-          enrolmentDate: '', // remove
-          assignmentsCompleted: '',
-          assignmentsAvgScore: '',
-          assignmentsAvgGrade: '',
-          testsCompleted: '', // remove
-          testsAvgScore: '',
-          testsAvgGrade: '',
-          practicesCompleted: '', // remove
-          practicesAvgScore: '', // remove
-          practicesAvgGrade: '', // remove
-          totalTimeOnTask: '', // remove
-          oralVocabulary: '',
-          oralInteraction: '',
-        };
+        const uuid = uuidv4();
+        const student = new Student();
         [...element.children].forEach((row: any, rowIndex) => {
           const { textContent } = row;
           switch (rowIndex) {
             case 0:
               if (textContent !== 'Student') {
-                rowy.name = textContent;
-                rows.push(rowy);
+                dictionary[uuid] = student;
+                dictionary[uuid].name = textContent;
               }
               break;
 
             case 1:
-              if (textContent !== 'Username') rowy.username = textContent;
+              if (textContent !== 'Username')
+                dictionary[uuid].username = textContent;
               break;
 
             case 2:
-              if (textContent !== 'Last login') rowy.lastLogin = textContent;
+              if (textContent !== 'Last login')
+                dictionary[uuid].lastLogin = textContent;
               break;
 
             case 3:
               if (textContent !== 'Enrolment date')
-                rowy.enrolmentDate = textContent;
+                dictionary[uuid].enrolmentDate = textContent;
               break;
 
             case 4:
               if (textContent !== 'Assignments completed')
-                rowy.assignmentsCompleted = textContent;
+                dictionary[uuid].assignmentsCompleted = textContent;
               break;
 
             case 5:
               if (textContent !== 'Assignments avg score')
-                rowy.assignmentsAvgScore = textContent;
+                dictionary[uuid].assignmentsAvgScore = textContent;
               break;
 
             case 6:
               if (textContent !== 'Assignments avg grade')
-                rowy.assignmentsAvgGrade = textContent;
+                dictionary[uuid].assignmentsAvgGrade = textContent;
               break;
 
             case 7:
               if (textContent !== 'Tests completed')
-                rowy.testsCompleted = textContent;
+                dictionary[uuid].testsCompleted = textContent;
               break;
 
             case 8:
               if (textContent !== 'Tests avg score')
-                rowy.testsAvgScore = textContent;
+                dictionary[uuid].testsAvgScore = textContent;
               break;
 
             case 9:
               if (textContent !== 'Tests avg grade')
-                rowy.testsAvgGrade = textContent;
+                dictionary[uuid].testsAvgGrade = textContent;
               break;
 
             case 10:
               if (textContent !== 'Practices completed')
-                rowy.practicesCompleted = textContent;
+                dictionary[uuid].practicesCompleted = textContent;
               break;
 
             case 11:
               if (textContent !== 'Practices avg score')
-                rowy.practicesAvgScore = textContent;
+                dictionary[uuid].practicesAvgScore = textContent;
               break;
 
             case 12:
               if (textContent !== 'Practices avg grade')
-                rowy.practicesAvgGrade = textContent;
+                dictionary[uuid].practicesAvgGrade = textContent;
               break;
 
             case 13:
               if (textContent !== 'Total time on task')
-                rowy.totalTimeOnTask = textContent;
+                dictionary[uuid].totalTimeOnTask = textContent;
               break;
           }
         });
@@ -126,7 +113,6 @@ async function handleFileUpload(event: any) {
     });
   };
   reader.readAsText(file);
-  console.log('summaryJson', s_store.summaryJson);
 }
 </script>
 

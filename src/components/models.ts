@@ -15,7 +15,10 @@ export interface Row {
   totalTimeOnTask?: string;
   oralVocabulary: string;
   oralInteraction: string;
+  description: string;
+  id: string;
 }
+
 export interface TableColumn {
   name: string;
   label: string;
