@@ -7,7 +7,10 @@
       filled
       class="q-my-md"
     />
-    <p>{{ group }}</p>
+
+    <q-input v-model="semester" label="Semester" filled class="q-my-md" />
+
+    <q-input v-model="teacher" label="Teacher" filled class="q-my-md" />
 
     <q-table
       title="Treats"
@@ -128,6 +131,9 @@ import { Row } from './models';
 const s_store = summaryStore();
 const { dictionary } = s_store;
 const selected = ref([]);
+const teacher = ref('');
+const semester = ref('');
+
 const opis =
   'Student robi postępy, poświcęca dużo czasu ma naukę. Chetnie używa języka angielskiego do komunikacji z ruwiesnikami i nauczyciele. Tworzy pełne zdania, poprawne stylistycznie i gramatycznie. Jest bardzo zaangażowany w zajęcia. Jestem zadowolony z jego postępów. Jest bardzo zaangażowany w zajęcia. Jestem zadowolony z jego postępów. Jestem zadowolony z jego postępów. &';
 const group = ref(null);
@@ -142,7 +148,7 @@ function dodo(selected: Row[]) {
     };
     pdfMake
       .createPdf(
-        generatePDFData(student, group.value),
+        generatePDFData(group.value, semester.value, teacher.value, student),
         undefined,
         fonts,
         pdfVfs

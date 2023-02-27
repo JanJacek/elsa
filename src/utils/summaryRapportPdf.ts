@@ -7,11 +7,13 @@ const blue = '#aef9f7';
 const purple = '#a7b3f7';
 
 export function generatePDFData(
-  student: Row,
   group: {
     label: string;
     value: number;
-  } | null
+  } | null,
+  semester: string,
+  teacher: string,
+  student: Row
 ): TDocumentDefinitions {
   //Object that later is pushed into document definition
   const objectData: Content = [
@@ -69,7 +71,7 @@ export function generatePDFData(
                     {
                       border: [true, true, true, true],
                       fillColor: null,
-                      text: 'I 2022/23',
+                      text: semester,
                       margin: [10, 12, 0, 0],
                       alignment: 'left',
                     },
@@ -121,7 +123,7 @@ export function generatePDFData(
                   [
                     {
                       border: [false, false, false, false],
-                      text: 'podsumowanie wyników',
+                      text: 'Podsumowanie wyników',
                       margin: [0, 5],
                       fontSize: 20,
                       alignment: 'right',
@@ -171,7 +173,7 @@ export function generatePDFData(
                 {
                   border: [true, true, true, true],
                   fillColor: null,
-                  text: student.name.replace(',', ''),
+                  text: student.name.split(', ').reverse().join(' '),
                   margin: [10, 10, 0, 0],
                   fontSize: 15,
                   // bold: true,
@@ -281,8 +283,8 @@ export function generatePDFData(
                 {
                   border: [false, false, false, false],
                   fillColor: yellow,
-                  text: 'test pisemny',
-                  margin: [0, 35, 0, 0],
+                  text: 'znajomość słownictwa,\n podstawy czytania\n i rozumienie ze słuchu',
+                  margin: [0, 22, 0, 0],
                   fontSize: 10,
                 },
               ],
@@ -378,8 +380,8 @@ export function generatePDFData(
                   fillColor: null,
                   text: `${student.testsAvgScore}`,
                   alignment: 'center',
-                  margin: [0, 30, 0, 0],
-                  fontSize: 15,
+                  margin: [0, 35, 0, 0],
+                  fontSize: 10,
                 },
               ],
               [
@@ -394,8 +396,8 @@ export function generatePDFData(
                   fillColor: null,
                   text: `${student.oralVocabulary}`,
                   alignment: 'center',
-                  margin: [0, 10, 0, 0],
-                  fontSize: 15,
+                  margin: [0, 14, 0, 0],
+                  fontSize: 10,
                 },
               ],
               [
@@ -410,8 +412,8 @@ export function generatePDFData(
                   fillColor: null,
                   text: `${student.oralInteraction}`,
                   alignment: 'center',
-                  margin: [0, 10, 0, 0],
-                  fontSize: 15,
+                  margin: [0, 14, 0, 0],
+                  fontSize: 10,
                 },
               ],
               [
@@ -426,8 +428,8 @@ export function generatePDFData(
                   fillColor: null,
                   text: `${student.assignmentsCompleted}`,
                   alignment: 'center',
-                  margin: [0, 10, 0, 0],
-                  fontSize: 15,
+                  margin: [0, 14, 0, 0],
+                  fontSize: 10,
                 },
               ],
               [
@@ -442,8 +444,8 @@ export function generatePDFData(
                   fillColor: null,
                   text: `${student.assignmentsAvgGrade}`,
                   alignment: 'center',
-                  margin: [0, 10, 0, 0],
-                  fontSize: 15,
+                  margin: [0, 14, 0, 0],
+                  fontSize: 10,
                 },
               ],
             ],
@@ -488,9 +490,9 @@ export function generatePDFData(
                 {
                   border: [false, false, false, false],
                   fillColor: purple,
-                  margin: [0, 28, 0, 0],
+                  margin: [36, 28, 0, 0],
                   text: 'A=100-90%\nB=89-75%\nC=74-60%\nD=59-45%\nE=44-30%\nF=29-0%',
-                  alignment: 'center',
+                  alignment: 'left',
                   fontSize: 10,
                 },
               ],
@@ -504,10 +506,11 @@ export function generatePDFData(
                 {
                   border: [false, false, false, false],
                   fillColor: purple,
-                  text: 'nauczyciel:',
+                  // key text received template string with teacher argument  and
+                  text: `${teacher.replace(' ', '\n')}\n\n nauczyciel`,
                   alignment: 'center',
-                  margin: [0, 70, 0, 0],
-                  fontSize: 10,
+                  margin: [0, 20, 0, 0],
+                  fontSize: 12,
                 },
               ],
             ],
